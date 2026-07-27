@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datorhjälp Stockholm — Felsökning, Gaming & IT-support | datorhjalpen.nu</title>
+<meta name="description" content="Snabb datorhjälp i Stockholm med omnejd. Felsökning, gamingoptimering, digital säkerhet och IT-support. Hembesök eller distans. Boka tid direkt på datorhjalpen.nu.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%236366f1'/><text x='16' y='22' text-anchor='middle' font-size='15' font-weight='700' fill='white'>DT</text></svg>">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    background:#07080b;color:#e4e6eb;line-height:1.68
+  }
+  ::selection{background:rgba(99,102,241,.35);color:#fff}
+
+  /* ===== OFFER BAR ===== */
+  .offer-bar{
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+    text-align:center;padding:11px 20px;font-size:.85rem;font-weight:500;
+    position:relative;z-index:1001;display:flex;align-items:center;justify-content:center;gap:10px
+  }
+  .offer-bar strong{font-weight:700}
+  .offer-bar .dismiss{
+    background:none;border:none;color:#fff;cursor:pointer;font-size:1.2rem;
+    line-height:1;opacity:.7;transition:opacity .2s;padding:0 4px
+  }
+  .offer-bar .dismiss:hover{opacity:1}
+  .offer-bar.hidden{display:none}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;width:100%;z-index:999;
+    transition:background .35s,backdrop-filter .35s,border-color .35s
+  }
+  nav.has-banner{top:40px}
+  nav.scrolled{
+    background:rgba(7,8,11,.88);
+    backdrop-filter:blur(18px) saturate(1.3);
+    border-bottom:1px solid rgba(255,255,255,.05)
+  }
+  .nav-inner{
+    max-width:1160px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px
+  }
+  .logo{
+    font-weight:800;font-size:1.05rem;letter-spacing:-.3px;
+    color:#fff;text-decoration:none;display:flex;align-items:center;gap:9px
+  }
+  .logo-icon{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);
+    font-size:.85rem;font-weight:700;color:#fff
+  }
+  .nav-links{display:flex;gap:28px;list-style:none}
+  .nav-links a{
+    color:#7a7d85;text-decoration:none;font-size:.85rem;font-weight:500;
+    transition:color .25s;position:relative;padding:4px 0
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:0;left:0;
+    width:0;height:2px;background:#6366f1;transition:width .3s;border-radius:2px
+  }
+  .nav-links a:hover,.nav-links a.active{color:#e4e6eb}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:1.6rem;cursor:pointer}
+  @media(max-width:768px){
+    .nav-links{display:none;position:absolute;top:72px;left:0;right:0;
+      background:rgba(7,8,11,.95);flex-direction:column;padding:24px 28px;gap:18px;
+      border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav-links.open{display:flex}
+    .nav-toggle{display:block}
+    body{padding-bottom:70px}
+  }
+
+  /* ===== SECTIONS ===== */
+  section{max-width:1160px;margin:0 auto;padding:100px 28px}
+  .section-label{
+    font-size:.7rem;text-transform:uppercase;letter-spacing:2.8px;
+    color:#6366f1;font-weight:600;margin-bottom:12px
+  }
+  h2{font-size:clamp(1.8rem,3.8vw,2.6rem);font-weight:700;letter-spacing:-.7px;margin-bottom:14px;color:#f0f0f5}
+  .sub{color:#6b6e76;font-size:1rem;max-width:540px;margin-bottom:52px}
+
+  /* ===== REVEAL ===== */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ===== BUTTONS ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:15px 34px;border-radius:100px;text-decoration:none;
+    font-weight:600;font-size:.9rem;
+    transition:transform .2s,box-shadow .25s,background .25s;cursor:pointer;border:none
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 22px rgba(99,102,241,.28)}
+  .btn-primary:hover{box-shadow:0 6px 30px rgba(99,102,241,.4)}
+  .btn-green{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 4px 18px rgba(34,197,94,.25)}
+  .btn-green:hover{box-shadow:0 6px 26px rgba(34,197,94,.38)}
+  .btn-outline{background:transparent;color:#c4c7cf;border:1px solid rgba(255,255,255,.1)}
+  .btn-outline:hover{border-color:rgba(99,102,241,.4);color:#e4e6eb}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding-top:170px;padding-bottom:110px;
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;text-align:left
+  }
+  @media(max-width:800px){.hero{grid-template-columns:1fr;text-align:center;padding-top:140px}}
+  .hero::before{
+    content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);
+    width:800px;height:800px;
+    background:radial-gradient(circle at center,rgba(99,102,241,.06) 0%,transparent 65%);
+    pointer-events:none;z-index:-1
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 20px;border-radius:100px;margin-bottom:28px;
+    background:rgba(34,197,94,.12);color:#4ade80;font-size:.82rem;font-weight:500;
+    border:1px solid rgba(34,197,94,.15)
+  }
+  .hero-badge span{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;display:inline-block}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .hero h1{
+    font-size:clamp(2.2rem,5vw,3.4rem);
+    font-weight:800;letter-spacing:-1.4px;line-height:1.14;margin-bottom:18px;
+    background:linear-gradient(135deg,#f0f0f5 30%,#a5b4fc 55%,#818cf8);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+  }
+  .hero p{font-size:1.1rem;color:#7a7d85;max-width:520px;line-height:1.7}
+  @media(max-width:800px){.hero p{margin:0 auto}}
+  .hero-actions{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+  @media(max-width:800px){.hero-actions{justify-content:center}}
+  .hero-location{
+    display:inline-flex;align-items:center;gap:6px;
+    margin-top:20px;color:#6b6e76;font-size:.85rem
+  }
+  .hero-illustration{
+    display:flex;align-items:center;justify-content:center
+  }
+  @media(max-width:800px){.hero-illustration{display:none}}
+  .hero-illustration svg{width:100%;max-width:420px;height:auto}
+
+  /* ===== ICON BUBBLES ===== */
+  .icons-row{display:flex;justify-content:center;gap:18px;margin-top:56px;flex-wrap:wrap}
+  .icon-bubble{
+    width:64px;height:64px;border-radius:20px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+    display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+    transition:transform .25s,border-color .25s,background .25s
+  }
+  .icon-bubble:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.25);background:rgba(99,102,241,.06)}
+
+  /* ===== CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+  .card{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:34px 30px;
+    transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s,box-shadow .4s;position:relative
+  }
+  .card:hover{transform:translateY(-6px);border-color:rgba(99,102,241,.2);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .card-icon{
+    font-size:1.5rem;margin-bottom:20px;
+    width:52px;height:52px;border-radius:15px;
+    display:inline-flex;align-items:center;justify-content:center
+  }
+  .bg-purple{background:rgba(99,102,241,.1)}.bg-green{background:rgba(34,197,94,.1)}
+  .bg-pink{background:rgba(236,72,153,.1)}.bg-orange{background:rgba(251,146,60,.1)}
+  .card h3{font-size:1.1rem;font-weight:600;margin-bottom:8px}
+  .card p{color:#6b6e76;font-size:.88rem;line-height:1.65}
+  .card ul{list-style:none;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+  @media(max-width:420px){.card ul{grid-template-columns:1fr}}
+  .card ul li{color:#6b6e76;font-size:.82rem;display:flex;align-items:center;gap:7px}
+  .card ul li::before{content:"✓";color:#22c55e;font-weight:700;font-size:.75rem}
+
+  /* ===== PRICE CARDS ===== */
+  .price-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .price-card{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:36px 30px;
+    text-align:center;transition:transform .35s,border-color .35s,box-shadow .4s;position:relative
+  }
+  .price-card.featured{border-color:rgba(99,102,241,.3);background:linear-gradient(180deg,rgba(99,102,241,.08),rgba(99,102,241,.015))}
+  .price-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.25)}
+  .price-badge{
+    position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+    padding:5px 18px;border-radius:100px;font-size:.75rem;font-weight:600
+  }
+  .price-tag{font-size:2.4rem;font-weight:800;margin:12px 0 4px}
+  .price-tag small{font-size:.9rem;font-weight:400;color:#6b6e76}
+  .price-sub{color:#6b6e76;font-size:.82rem;margin-bottom:20px}
+  .price-features{list-style:none;text-align:left;margin-bottom:24px}
+  .price-features li{color:#8a8d95;font-size:.84rem;padding:7px 0;display:flex;align-items:center;gap:8px}
+  .price-features li::before{content:"✓";color:#22c55e;font-weight:700}
+  .price-features li.extra::before{content:"+";color:#6366f1;font-weight:700}
+
+  /* ===== CASE STUDIES ===== */
+  .case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+  .case-card{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:32px 28px;
+    transition:transform .3s,border-color .3s
+  }
+  .case-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.18)}
+  .case-card .case-icon{font-size:1.5rem;margin-bottom:14px}
+  .case-card h4{font-size:1rem;font-weight:600;margin-bottom:14px}
+  .case-before-after{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+  .case-ba{
+    border-radius:12px;padding:14px 16px;font-size:.82rem
+  }
+  .case-before{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.15)}
+  .case-before .ba-label{color:#f87171;font-weight:600;font-size:.7rem;text-transform:uppercase;margin-bottom:4px}
+  .case-before p{color:#8a8d95;font-size:.82rem;line-height:1.5}
+  .case-after{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.15)}
+  .case-after .ba-label{color:#4ade80;font-weight:600;font-size:.7rem;text-transform:uppercase;margin-bottom:4px}
+  .case-after p{color:#8a8d95;font-size:.82rem;line-height:1.5}
+  .case-result{color:#a5b4fc;font-size:.84rem;font-weight:500;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+
+  /* ===== GUARANTEE ===== */
+  .guarantee-banner{
+    background:#0e0f14;border:1px solid rgba(34,197,94,.15);border-radius:18px;
+    padding:36px 40px;display:flex;align-items:center;gap:28px;
+    margin-bottom:48px;max-width:700px;margin-left:auto;margin-right:auto
+  }
+  @media(max-width:560px){.guarantee-banner{flex-direction:column;text-align:center;padding:28px}}
+  .guarantee-icon{
+    font-size:2.6rem;flex-shrink:0;
+    width:72px;height:72px;border-radius:50%;
+    background:rgba(34,197,94,.08);display:flex;align-items:center;justify-content:center
+  }
+  .guarantee-text h4{font-size:1.1rem;font-weight:600;margin-bottom:4px}
+  .guarantee-text p{color:#6b6e76;font-size:.88rem}
+
+  /* ===== TRUST ===== */
+  .trust-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .trust-item{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:28px 24px;
+    transition:transform .25s,border-color .25s
+  }
+  .trust-item:hover{transform:translateY(-4px);border-color:rgba(34,197,94,.15)}
+  .trust-item .t-icon{font-size:1.4rem;margin-bottom:12px}
+  .trust-item h4{font-size:.95rem;font-weight:600;margin-bottom:6px}
+  .trust-item p{color:#6b6e76;font-size:.84rem}
+
+  /* ===== SELF-DIAGNOSTIC ===== */
+  .diagnostic{
+    background:linear-gradient(160deg,#0e0f14 60%,rgba(99,102,241,.06));
+    border:1px solid rgba(255,255,255,.06);border-radius:20px;
+    padding:44px 36px;max-width:700px;margin:0 auto
+  }
+  @media(max-width:520px){.diagnostic{padding:28px 22px}}
+  .diag-step{text-align:center}
+  .diag-step h4{font-size:1.15rem;font-weight:600;margin-bottom:24px;color:#f0f0f5}
+  .diag-options{display:flex;flex-direction:column;gap:10px;max-width:420px;margin:0 auto}
+  .diag-btn{
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    color:#c4c7cf;padding:14px 20px;border-radius:12px;font-size:.9rem;
+    cursor:pointer;transition:all .25s;text-align:left;font-family:inherit
+  }
+  .diag-btn:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.25);color:#e4e6eb}
+  .diag-result{padding:24px;border-radius:14px;text-align:center}
+  .diag-result h4{font-size:1.2rem;font-weight:700;margin-bottom:12px}
+  .diag-result p{color:#8a8d95;font-size:.9rem;margin-bottom:20px;line-height:1.6}
+  .diag-result.recommend{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2)}
+  .diag-result.recommend h4{color:#a5b4fc}
+  .diag-result.safe{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.15)}
+  .diag-result.safe h4{color:#4ade80}
+  .diag-result.issue{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15)}
+  .diag-result.issue h4{color:#f87171}
+  .diag-progress{display:flex;gap:6px;justify-content:center;margin-bottom:24px}
+  .diag-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);transition:background .3s}
+  .diag-dot.active{background:#6366f1}
+  .diag-dot.done{background:rgba(99,102,241,.4)}
+
+  /* ===== FAQ ===== */
+  .faq-list{display:flex;flex-direction:column;gap:14px}
+  .faq-item{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:14px;
+    overflow:hidden;transition:border-color .25s
+  }
+  .faq-item:hover{border-color:rgba(99,102,241,.15)}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;color:#e4e6eb;
+    font-size:.95rem;font-weight:600;padding:20px 24px;
+    cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    font-family:inherit
+  }
+  .faq-q .arrow{transition:transform .3s;font-size:.7rem;color:#6366f1;flex-shrink:0}
+  .faq-q.open .arrow{transform:rotate(180deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),padding .4s}
+  .faq-a.open{max-height:300px;padding:0 24px 20px}
+  .faq-a p{color:#6b6e76;font-size:.88rem;line-height:1.7}
+
+  /* ===== CALENDLY ===== */
+  .calendly-wrap{
+    max-width:700px;margin:0 auto;
+    background:#0e0f14;border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;padding:28px;overflow:hidden
+  }
+  .calendly-inner{
+    min-height:600px;display:flex;align-items:center;justify-content:center;
+    color:#6b6e76;font-size:.9rem
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-card{
+    max-width:620px;margin:0 auto;
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);
+    border-radius:24px;padding:56px 44px;text-align:center
+  }
+  @media(max-width:520px){.contact-card{padding:34px 20px}}
+  .contact-card h3{font-size:1.4rem;font-weight:600;margin-bottom:10px}
+  .contact-grid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:32px}
+  .contact-chip{
+    display:flex;align-items:center;gap:10px;padding:14px 22px;
+    border-radius:14px;text-decoration:none;font-weight:500;font-size:.88rem;
+    background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);
+    color:#c4c7cf;transition:all .25s
+  }
+  .contact-chip:hover{background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.25);color:#e4e6eb}
+  .contact-chip .emoji{font-size:1.15rem}
+
+  /* ===== CTA ===== */
+  .cta-strip{text-align:center;padding:80px 28px 100px}
+  .cta-strip h2{margin-bottom:12px}
+  .cta-strip p{color:#6b6e76;max-width:480px;margin:0 auto 32px;font-size:.95rem}
+
+  /* ===== FOOTER ===== */
+  footer{
+    text-align:center;padding:50px 28px 36px;
+    color:#3b3d44;font-size:.8rem;
+    border-top:1px solid rgba(255,255,255,.04)
+  }
+  footer span{color:#6366f1}
+
+  /* ===== MOBILE STICKY BAR ===== */
+  .mobile-sticky{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;
+    background:rgba(7,8,11,.95);backdrop-filter:blur(14px);
+    border-top:1px solid rgba(255,255,255,.08);padding:10px 16px;
+    gap:10px
+  }
+  @media(max-width:768px){.mobile-sticky{display:flex}}
+  .mobile-sticky .sticky-btn{
+    flex:1;text-align:center;padding:12px 10px;border-radius:12px;
+    font-weight:600;font-size:.85rem;text-decoration:none;
+    display:flex;align-items:center;justify-content:center;gap:6px
+  }
+  .sticky-call{background:#22c55e;color:#fff}
+  .sticky-book{background:#6366f1;color:#fff}
+  .sticky-mail{background:rgba(255,255,255,.08);color:#e4e6eb;border:1px solid rgba(255,255,255,.1)}
+
+  /* ===== AVAILABILITY TABLE ===== */
+  .hours-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px
+  }
+  .hours-item{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:14px;
+    padding:20px 18px;text-align:center
+  }
+  .hours-day{font-size:.75rem;text-transform:uppercase;letter-spacing:1px;color:#6366f1;font-weight:600;margin-bottom:8px}
+  .hours-time{font-size:1.15rem;font-weight:700;color:#e4e6eb}
+  .hours-item.today{border-color:rgba(99,102,241,.25);background:rgba(99,102,241,.04)}
+
+  /* ===== SPECIALTJÄNSTER CARDS ===== */
+  .spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+  .spec-card{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:14px;
+    padding:22px 20px;text-decoration:none;color:#c4c7cf;
+    transition:transform .25s,border-color .25s,background .25s;display:block
+  }
+  .spec-card:hover{transform:translateY(-3px);border-color:rgba(99,102,241,.2);background:rgba(99,102,241,.03)}
+  .spec-card .spec-emoji{font-size:1.3rem;margin-bottom:8px}
+  .spec-card h5{font-size:.9rem;font-weight:600;color:#e4e6eb;margin-bottom:4px}
+  .spec-card p{font-size:.78rem;color:#6b6e76;line-height:1.5}
+  /* ===== LOGIN OVERLAY ===== */
+  .login-overlay{
+    position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;
+    background:#07080b;display:flex;align-items:center;justify-content:center
+  }
+  .login-overlay.hidden{display:none}
+  .login-box{
+    background:#0e0f14;border:1px solid rgba(255,255,255,.08);border-radius:20px;
+    padding:48px 40px;width:100%;max-width:380px;text-align:center
+  }
+  @media(max-width:420px){.login-box{padding:32px 22px}}
+  .login-box h2{font-size:1.4rem;font-weight:700;margin-bottom:6px;color:#f0f0f5}
+  .login-box .login-sub{color:#6b6e76;font-size:.85rem;margin-bottom:28px}
+  .login-box label{display:block;text-align:left;font-size:.8rem;color:#8a8d95;margin-bottom:4px;margin-top:14px}
+  .login-box input{
+    width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.1);
+    background:#12121a;color:#e4e6eb;font-size:.9rem;font-family:inherit;outline:none;
+    transition:border-color .25s
+  }
+  .login-box input:focus{border-color:rgba(99,102,241,.5)}
+  .login-error{color:#f87171;font-size:.8rem;margin-top:10px;display:none}
+  .login-error.show{display:block}
+
+  .divider{max-width:1160px;margin:0 auto;padding:0 28px}
+  .divider hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div style="font-size:2rem;margin-bottom:8px">🔒</div>
+    <h2>Digital Teknik & Gaminghjälp</h2>
+    <p class="login-sub">Sidan är under uppbyggnad — logga in för att se</p>
+    <form id="loginForm" onsubmit="return tryLogin()">
+      <label>Användarnamn</label>
+      <input type="text" id="loginUser" placeholder="Användarnamn" autocomplete="off">
+      <label>Lösenord</label>
+      <input type="password" id="loginPass" placeholder="Lösenord">
+      <p class="login-error" id="loginError">Fel användarnamn eller lösenord</p>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:22px">Logga in</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== OFFER BAR ===== -->
+<div class="offer-bar" id="offerBar">
+  🎉 <strong>Erbjudande:</strong> Första säkerhetskontrollen — 50% rabatt för nya kunder
+  <button class="dismiss" onclick="document.getElementById('offerBar').classList.add('hidden');document.getElementById('navbar').classList.remove('has-banner')" aria-label="Stäng">×</button>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar" class="has-banner">
+  <div class="nav-inner">
+    <a href="#start" class="logo">
+      <span class="logo-icon">DT</span>
+      Digital Teknik & Gaminghjälp
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Meny">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#tjanster">Tjänster</a></li>
+      <li><a href="#priser">Priser</a></li>
+      <li><a href="#diagnostik">Självtest</a></li>
+      <li><a href="#om">Om oss</a></li>
+      <li><a href="#faq">Vanliga frågor</a></li>
+      <li><a href="#boka">Boka tid</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="start">
+  <div>
+    <div class="hero-badge"><span></span> Hembesök i Stockholm med omnejd</div>
+    <h1>Snabb teknikhjälp för datorer, gaming & digital säkerhet</h1>
+    <p>Felsökning, optimering och personlig support – hemma hos dig i Stockholm eller på distans i hela Sverige. Tekniska problem förklaras på ett enkelt och tydligt sätt, utan onödigt krångel.</p>
+    <div class="hero-location">📍 Stockholm med omnejd · 🌐 Distanshjälp i hela Sverige</div>
+    <div class="hero-actions">
+      <a href="#boka" class="btn btn-primary">📅 Boka tid</a>
+      <a href="#diagnostik" class="btn btn-green">🔍 Gör ett självtest</a>
+    </div>
+  </div>
+  <div class="hero-illustration">
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <!-- Monitor -->
+      <rect x="70" y="30" width="230" height="150" rx="12" fill="#12121a" stroke="rgba(99,102,241,.3)" stroke-width="2"/>
+      <rect x="80" y="42" width="210" height="125" rx="6" fill="rgba(99,102,241,.08)"/>
+      <!-- Screen content -->
+      <rect x="95" y="55" width="80" height="8" rx="4" fill="rgba(255,255,255,.15)"/>
+      <rect x="95" y="70" width="140" height="6" rx="3" fill="rgba(255,255,255,.08)"/>
+      <circle cx="250" cy="70" r="16" fill="rgba(34,197,94,.15)" stroke="rgba(34,197,94,.3)" stroke-width="1.5"/>
+      <text x="250" y="75" text-anchor="middle" font-size="14">✓</text>
+      <!-- Shield -->
+      <path d="M195 115 L230 100 L265 115 L265 150 L230 165 L195 150 Z" fill="rgba(99,102,241,.12)" stroke="rgba(99,102,241,.3)" stroke-width="1.5"/>
+      <text x="230" y="138" text-anchor="middle" font-size="18">🛡️</text>
+      <!-- Stand -->
+      <rect x="155" y="182" width="60" height="8" rx="3" fill="rgba(255,255,255,.1)"/>
+      <rect x="175" y="190" width="20" height="20" rx="4" fill="rgba(255,255,255,.06)"/>
+      <!-- Game controller floating -->
+      <ellipse cx="340" cy="120" rx="30" ry="18" fill="rgba(236,72,153,.08)" stroke="rgba(236,72,153,.2)" stroke-width="1.5"/>
+      <text x="340" y="125" text-anchor="middle" font-size="15">🎮</text>
+      <!-- Wrench floating -->
+      <circle cx="85" cy="200" r="18" fill="rgba(251,146,60,.08)" stroke="rgba(251,146,60,.2)" stroke-width="1.5"/>
+      <text x="85" y="205" text-anchor="middle" font-size="14">🔧</text>
+      <!-- Network lines -->
+      <path d="M330 80 Q350 90 340 110" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+      <path d="M60 120 Q40 130 50 150" stroke="rgba(255,255,255,.08)" stroke-width="1" fill="none"/>
+      <!-- Progress bar -->
+      <rect x="100" y="105" width="140" height="5" rx="2.5" fill="rgba(255,255,255,.06)"/>
+      <rect x="100" y="105" width="110" height="5" rx="2.5" fill="#6366f1"/>
+    </svg>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== TJÄNSTER ===== -->
+<section id="tjanster">
+  <div class="section-label reveal">Tjänster</div>
+  <h2 class="reveal">Datorn strular? Vi fixar det.</h2>
+  <p class="sub reveal">Allt från att få datorn att gå snabbare till att bygga en riktigt bra gamingdator.</p>
+
+  <div class="cards">
+    <div class="card reveal" style="transition-delay:.04s">
+      <div class="card-icon bg-purple">🖥️</div>
+      <h3>Datorhjälp</h3>
+      <p>Snabb felsökning, installation och optimering för att få tekniken att fungera som den ska.</p>
+      <ul>
+        <li>Windows 10/11</li>
+        <li>Installationer</li>
+        <li>Felsökning</li>
+        <li>Drivrutiner</li>
+        <li>Nätverk & WiFi</li>
+        <li>Backup</li>
+      </ul>
+    </div>
+    <div class="card reveal" style="transition-delay:.10s">
+      <div class="card-icon bg-green">🛡️</div>
+      <h3>Digital säkerhet</h3>
+      <p>En komplett genomgång av datorns säkerhet – virus, lösenord och bedrägeriskydd.</p>
+      <ul>
+        <li>Antivirus-scan</li>
+        <li>Malware-koll</li>
+        <li>Lösenord & 2FA</li>
+        <li>Phishing-skydd</li>
+        <li>Bedrägeriskydd</li>
+        <li>Säkerhetskopiering</li>
+      </ul>
+    </div>
+    <div class="card reveal" style="transition-delay:.16s">
+      <div class="card-icon bg-pink">🎮</div>
+      <h3>Gaminghjälp</h3>
+      <p>Få dina spel att flyta bättre – optimera hela datorn för gaming.</p>
+      <ul>
+        <li>Låg FPS / lagg</li>
+        <li>Spel startar inte</li>
+        <li>Grafikproblem</li>
+        <li>Drivrutiner GPU</li>
+        <li>Ljudproblem</li>
+        <li>Temperatur & kylning</li>
+      </ul>
+    </div>
+    <div class="card reveal" style="transition-delay:.22s">
+      <div class="card-icon bg-orange">🔧</div>
+      <h3>Rådgivning gaming-PC</h3>
+      <p>Hjälp att välja rätt delar, undvika dåliga köp och planera din budget.</p>
+      <ul>
+        <li>Välja komponenter</li>
+        <li>Undvika dåliga köp</li>
+        <li>Planera budget</li>
+        <li>Kompatibilitet</li>
+        <li>Bygga vs färdigköpt</li>
+        <li>RAM & lagring</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== SPECIALTJÄNSTER ===== -->
+<section id="special">
+  <div class="section-label reveal">Specialtjänster</div>
+  <h2 class="reveal">Specifik hjälp — direkt till problemet</h2>
+  <p class="sub reveal">Klicka för att boka en specifik tjänst. Hittar du inte det du söker? Hör av dig så löser vi det ändå.</p>
+
+  <div class="spec-grid">
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.03s">
+      <div class="spec-emoji">🦠</div>
+      <h5>Virusrensning</h5>
+      <p>Ta bort virus, malware och spionprogram. Datorn blir ren och snabb igen.</p>
+    </a>
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.06s">
+      <div class="spec-emoji">💿</div>
+      <h5>Ominstallation av Windows</h5>
+      <p>Få en fräsch installation av Windows 10 eller 11 — med dina filer sparade.</p>
+    </a>
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.09s">
+      <div class="spec-emoji">⚡</div>
+      <h5>Gaming FPS-boost</h5>
+      <p>Optimerar drivrutiner, inställningar och kylning för maximal prestanda.</p>
+    </a>
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.12s">
+      <div class="spec-emoji">📧</div>
+      <h5>E-posthjälp</h5>
+      <p>Få ordning på mejlen — rensa, organisera och fixa strul med utskick/mottagning.</p>
+    </a>
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.15s">
+      <div class="spec-emoji">🖨️</div>
+      <h5>Skrivare & nätverk</h5>
+      <p>Installera skrivare, fixa WiFi-problem, koppla upp smarta prylar i hemmet.</p>
+    </a>
+    <a href="#boka" class="spec-card reveal" style="transition-delay:.18s">
+      <div class="spec-emoji">💾</div>
+      <h5>Säkerhetskopiering</h5>
+      <p>Sätt upp automatisk backup så att dina bilder och dokument aldrig försvinner.</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== CASE STUDIES ===== -->
+<section id="case">
+  <div class="section-label reveal">Exempel från verkligheten</div>
+  <h2 class="reveal">Så här har vi hjälpt andra</h2>
+  <p class="sub reveal">Riktiga problem vi har löst – från gaming till säkerhet.</p>
+
+  <div class="case-grid">
+    <div class="case-card reveal" style="transition-delay:.05s">
+      <div class="case-icon">🎮</div>
+      <h4>Gamingdator med låg FPS i CS2</h4>
+      <div class="case-before-after">
+        <div class="case-ba case-before">
+          <div class="ba-label">Före</div>
+          <p>20–40 FPS i CS2. Hackade, laggade och gick knappt att spela. Datorn två år gammal.</p>
+        </div>
+        <div class="case-ba case-after">
+          <div class="ba-label">Efter</div>
+          <p>200+ FPS stabilt. Mjukt och responsivt. Spelaren kunde tävla igen.</p>
+        </div>
+      </div>
+      <div class="case-result">🔧 Åtgärd: Drivrutiner uppdaterade, bakgrundsprogram stängda, kylning optimerad, grafikinställningar anpassade efter hårdvaran.</div>
+    </div>
+
+    <div class="case-card reveal" style="transition-delay:.12s">
+      <div class="case-icon">🛡️</div>
+      <h4>Pensionär lurad av falsk Microsoft-support</h4>
+      <div class="case-before-after">
+        <div class="case-ba case-before">
+          <div class="ba-label">Före</div>
+          <p>Bedragare hade fjärrstyrt datorn i 45 minuter. Obehöriga program installerade. Kunden var orolig och visste inte vad som fanns kvar.</p>
+        </div>
+        <div class="case-ba case-after">
+          <div class="ba-label">Efter</div>
+          <p>Alla spår borta. Datorn säkrad. Kunden fick en checklista för framtiden.</p>
+        </div>
+      </div>
+      <div class="case-result">🔧 Åtgärd: Full säkerhetsscan, borttagning av fjärrstyrningsprogram, Windows ominstallation av misstänkta komponenter, lösenordsbyte, genomgång av bedrägerivarningar.</div>
+    </div>
+
+    <div class="case-card reveal" style="transition-delay:.19s">
+      <div class="case-icon">🖥️</div>
+      <h4>Dator extremt seg – tog 5 minuter att starta</h4>
+      <div class="case-before-after">
+        <div class="case-ba case-before">
+          <div class="ba-label">Före</div>
+          <p>Windows 10-dator. 5+ minuters uppstart. Program frös. Fläkten gick konstant.</p>
+        </div>
+        <div class="case-ba case-after">
+          <div class="ba-label">Efter</div>
+          <p>Startar på under 30 sekunder. Allt flyter. Kunden trodde datorn behövde bytas ut.</p>
+        </div>
+      </div>
+      <div class="case-result">🔧 Åtgärd: Rensning av autostart-program, temporära filer borttagna, SSD-optimering, Windows-uppdateringar, malware-scan.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== PRISER + GARANTI ===== -->
+<section id="priser">
+  <div class="section-label reveal">Priser</div>
+  <h2 class="reveal">Vad kostar det? Inga överraskningar.</h2>
+  <p class="sub reveal">Inga dolda avgifter. Du vet alltid vad det kostar innan vi börjar.</p>
+
+  <!-- Guarantee -->
+  <div class="guarantee-banner reveal">
+    <div class="guarantee-icon">✅</div>
+    <div class="guarantee-text">
+      <h4>Nöjd-kund-garanti</h4>
+      <p>Löser vi inte ditt problem betalar du ingenting. Enkelt och rättvist – du tar ingen risk.</p>
+      <p style="margin-top:8px;font-size:.82rem;color:#4ade80">💡 <strong>RUT-avdrag:</strong> Vid hembesök kan du använda RUT-avdrag — då halveras priset. Vi hjälper dig med ansökan.</p>
+    </div>
+  </div>
+
+  <div class="price-cards">
+    <div class="price-card reveal" style="transition-delay:.04s">
+      <div class="price-tag">299 kr</div>
+      <div class="price-sub">per tillfälle</div>
+      <ul class="price-features">
+        <li>Fjärrsupport</li>
+        <li>Felsökning & fix</li>
+        <li>Installation av program</li>
+        <li>Snabbt & smidigt</li>
+      </ul>
+      <a href="#boka" class="btn btn-outline" style="width:100%;justify-content:center">Boka distanshjälp</a>
+    </div>
+    <div class="price-card featured reveal" style="transition-delay:.10s">
+      <div class="price-badge">Populärast</div>
+      <div class="price-tag">399 kr</div>
+      <div class="price-sub">per tillfälle</div>
+      <ul class="price-features">
+        <li>Gamingoptimering</li>
+        <li>FPS-boost & inställningar</li>
+        <li>Drivrutiner & uppdateringar</li>
+        <li>Kylningskoll</li>
+        <li class="extra">Fjärrsupport eller hembesök</li>
+      </ul>
+      <a href="#boka" class="btn btn-primary" style="width:100%;justify-content:center">Optimera datorn</a>
+    </div>
+    <div class="price-card reveal" style="transition-delay:.16s">
+      <div class="price-tag">499 kr</div>
+      <div class="price-sub">per tillfälle</div>
+      <ul class="price-features">
+        <li>Hembesök Stockholm</li>
+        <li>Felsökning & fix</li>
+        <li>Installationer</li>
+        <li>Personlig support på plats</li>
+        <li class="extra" style="color:#4ade80">RUT-avdrag ger 50% lägre pris</li>
+      </ul>
+      <a href="#boka" class="btn btn-outline" style="width:100%;justify-content:center">Boka hembesök</a>
+    </div>
+    <div class="price-card reveal" style="transition-delay:.22s">
+      <div class="price-tag">349 kr</div>
+      <div class="price-sub">per kontroll</div>
+      <ul class="price-features">
+        <li>Digital säkerhetskontroll</li>
+        <li>Virus- & malware-scan</li>
+        <li>Lösenord & 2FA-genomgång</li>
+        <li>Backup-koll</li>
+      </ul>
+      <a href="#boka" class="btn btn-outline" style="width:100%;justify-content:center">Boka säkerhetskontroll</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== ÖPPETTIDER ===== -->
+<section id="oppet">
+  <div class="section-label reveal">Tillgänglighet</div>
+  <h2 class="reveal">När kan du få hjälp?</h2>
+  <p class="sub reveal">Vi finns här nästan jämt. Hembesök i Stockholm — distanshjälp i hela Sverige.</p>
+
+  <div class="hours-grid reveal" id="hoursGrid"></div>
+
+  <p style="text-align:center;margin-top:20px;color:#6b6e76;font-size:.85rem">
+    📍 <strong>Distanshjälp:</strong> alla dagar 9–21 &nbsp;|&nbsp; 🏠 <strong>Hembesök Stockholm:</strong> vardagar 10–19, helger efter överenskommelse
+  </p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== SELF-DIAGNOSTIC ===== -->
+<section id="diagnostik">
+  <div class="section-label reveal">Självtest</div>
+  <h2 class="reveal">Vad strular? Gör vårt test.</h2>
+  <p class="sub reveal">Svara på 3 frågor så får du en rekommendation direkt.</p>
+
+  <div class="diagnostic reveal" id="diagWidget">
+    <div class="diag-progress" id="diagProgress">
+      <div class="diag-dot active" data-step="1"></div>
+      <div class="diag-dot" data-step="2"></div>
+      <div class="diag-dot" data-step="3"></div>
+    </div>
+    <div class="diag-step" id="diagStep"></div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== VARFÖR VÄLJA OSS ===== -->
+<section>
+  <div class="section-label reveal">Varför välja oss?</div>
+  <h2 class="reveal">Personlig hjälp – inget krångel</h2>
+  <p class="sub reveal">Vi är personliga, snabba och tydliga. Här får du IT-hjälp utan onödigt krångel.</p>
+
+  <div class="trust-grid">
+    <div class="trust-item reveal" style="transition-delay:.04s">
+      <div class="t-icon">⚡</div>
+      <h4>Snabb support</h4>
+      <p>Du slipper vänta i telefonkö. Hör av dig så löser vi det direkt.</p>
+    </div>
+    <div class="trust-item reveal" style="transition-delay:.08s">
+      <div class="t-icon">🔍</div>
+      <h4>Tydliga priser</h4>
+      <p>Du får priset innan vi börjar. Inga överraskningar – du vet alltid vad det kostar.</p>
+    </div>
+    <div class="trust-item reveal" style="transition-delay:.12s">
+      <div class="t-icon">🧑‍🏫</div>
+      <h4>Personlig service</h4>
+      <p>Vi förklarar vad vi gör – på svenska, utan dyr teknisk jargong.</p>
+    </div>
+    <div class="trust-item reveal" style="transition-delay:.16s">
+      <div class="t-icon">🤝</div>
+      <h4>Distans eller hembesök</h4>
+      <p>Fjärrsupport eller på plats i Stockholm – vi anpassar oss efter dig.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== OM OSS ===== -->
+<section id="om">
+  <div class="section-label reveal">Om oss</div>
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center">
+    <div class="reveal">
+      <h2>Vi gör teknik enkel och problemfri</h2>
+      <p style="color:#6b6e76;font-size:.95rem;margin-bottom:16px">
+        Digital Teknik & Gaminghjälp erbjuder snabb och personlig hjälp med datorer,
+        gaming och digital säkerhet i Stockholm med omnejd. Fokus ligger på snabb
+        service, tydlig kommunikation och lösningar som fungerar.
+      </p>
+      <p style="color:#6b6e76;font-size:.95rem">
+        Oavsett om det gäller en långsam dator, problem med spel eller frågor om
+        digital säkerhet är målet att göra tekniken enkel och problemfri.
+      </p>
+    </div>
+    <div class="reveal" style="transition-delay:.1s;background:#0e0f14;border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:28px">
+      <div class="section-label">Kompetenser</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Windows 10/11</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Felsökning</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Säkerhet</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Bedrägeriskydd</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Speloptimering</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Grafikkort & GPU</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Nätverk & WiFi</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Backup</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Lösenord & 2FA</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Komponentval</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">Kylning</span>
+        <span style="padding:6px 15px;border-radius:100px;background:rgba(255,255,255,.04);color:#8a8d95;font-size:.8rem;border:1px solid rgba(255,255,255,.06)">RAM & SSD</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="section-label reveal">Vanliga frågor</div>
+  <h2 class="reveal">Vanliga frågor — raka svar</h2>
+  <p class="sub reveal">Här hittar du svar på det folk oftast frågar.</p>
+
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">Hur fungerar fjärrsupport? <span class="arrow">▼</span></button>
+      <div class="faq-a"><p>Vi kopplar upp oss mot din dator via ett säkert program (TeamViewer eller liknande). Du ser allt vi gör på skärmen och kan avbryta när du vill. Inget installeras permanent.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">Vad kostar det om ni inte kan fixa problemet? <span class="arrow">▼</span></button>
+      <div class="faq-a"><p>Ingenting. Vi är tydliga med vad vi kan och inte kan lösa innan vi börjar. Löser vi inte problemet tar vi inte betalt – det är vår garanti.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">Hur lång tid tar en gamingoptimering? <span class="arrow">▼</span></button>
+      <div class="faq-a"><p>Det beror på datorn, men oftast mellan 30 och 60 minuter. Vi går igenom drivrutiner, bakgrundsprogram, temperaturer, grafikinställningar och ser till att allt är optimerat för dina spel.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">Gör ni hembesök i hela Stockholm? <span class="arrow">▼</span></button>
+      <div class="faq-a"><p>Ja, vi gör hembesök i Stockholm med omnejd. Bor du längre bort löser vi det via fjärrsupport – det fungerar utmärkt för de flesta problem.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)">Erbjuder ni abonnemang? <span class="arrow">▼</span></button>
+      <div class="faq-a"><p>Just nu körs betalning per tillfälle – du betalar bara när du faktiskt behöver hjälp. Enkelt och utan bindningstid. Abonnemang är planerat framöver.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== BOKA TID (CALENDLY) ===== -->
+<section id="boka">
+  <div class="section-label reveal">Boka tid</div>
+  <h2 class="reveal">Boka en tid direkt</h2>
+  <p class="sub reveal">Välj en tid som passar dig – vi hör av oss och bekräftar.</p>
+
+  <div class="calendly-wrap reveal">
+    <div class="calendly-inner" id="calendlyContainer">
+      <div style="text-align:center">
+        <p style="margin-bottom:16px">📅 Boka en tid via Calendly</p>
+        <!-- Calendly inline widget -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/DITTANVANDARNAMN/datorhjalp" style="min-width:320px;height:630px"></div>
+        <p style="margin-top:12px;font-size:.82rem;color:#52545a">
+          Koppla ditt Calendly-konto genom att byta ut <code>DITTANVANDARNAMN</code> i koden ovan.
+        </p>
+        <a href="#" class="btn btn-primary" style="margin-top:8px" onclick="alert('Lägg till din Calendly-länk här. Skapa ett gratis konto på calendly.com och klistra in din bokningslänk.')">
+          🔗 Koppla Calendly
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ===== KONTAKT ===== -->
+<section id="kontakt">
+  <div class="contact-card reveal">
+    <h3>Få hjälp redan idag</h3>
+    <p class="sub" style="max-width:100%;margin-bottom:28px">Kontakta oss så hittar vi en lösning tillsammans – snabbt, enkelt och utan krångel.</p>
+
+    <div class="contact-grid">
+      <a href="mailto:info@datorhjalpen.nu" class="contact-chip">
+        <span class="emoji">✉️</span> E-post
+      </a>
+      <a href="#" class="contact-chip">
+        <span class="emoji">💬</span> Messenger
+      </a>
+      <a href="#" class="contact-chip">
+        <span class="emoji">📱</span> WhatsApp
+      </a>
+      <a href="#" class="contact-chip">
+        <span class="emoji">🎮</span> Discord
+      </a>
+    </div>
+
+    <p style="color:#52545a;font-size:.85rem">📍 Stockholm med omnejd — fungerar att ringa, skicka SMS eller mejla.</p>
+  </div>
+</section>
+
+<!-- ===== BOTTOM CTA ===== -->
+<div class="cta-strip">
+  <h2 class="reveal">Din dator ska bara funka</h2>
+  <p class="reveal">Strular något? Boka en tid eller hör av dig så löser vi det. Gratis rådgivning om du är osäker på vad du behöver.</p>
+  <div class="reveal" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px">
+    <a href="#boka" class="btn btn-primary">📅 Boka tid</a>
+    <a href="#diagnostik" class="btn btn-green">🔍 Gör självtestet</a>
+  </div>
+</div>
+
+<footer>
+  Digital Teknik & Gaminghjälp <span>·</span> Stockholm med omnejd <span>·</span> datorhjalpen.nu
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// ---- LOGIN ----
+// ÄNDRA DESSA för ditt lösenord:
+const LOGIN_USER = 'admin';
+const LOGIN_PASS = 'datorhjalpen2026';
+
+function tryLogin(){
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  if(u === LOGIN_USER && p === LOGIN_PASS){
+    document.getElementById('loginOverlay').classList.add('hidden');
+  } else {
+    document.getElementById('loginError').classList.add('show');
+  }
+  return false;
+}
+
+// ---- NAV ----
+const nav = document.getElementById('navbar');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if(!ticking){
+    window.requestAnimationFrame(() => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+// ---- REVEAL ----
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ---- FAQ ----
+function toggleFAQ(btn){
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q.open').forEach(q => q.classList.remove('open'));
+  if(!isOpen){ btn.classList.add('open'); answer.classList.add('open'); }
+}
+
+// ---- SELF-DIAGNOSTIC ----
+(function(){
+  const steps = [
+    {
+      question: 'Vad stämmer bäst in på ditt problem?',
+      options: [
+        { text: '🖥️ Min dator är seg / strular allmänt', value: 'dator' },
+        { text: '🎮 Mina spel laggar / har låg FPS', value: 'gaming' },
+        { text: '🛡️ Jag är orolig för virus eller bedrägerier', value: 'sakerhet' },
+        { text: '❓ Jag är osäker / vill ha rådgivning', value: 'rad' }
+      ]
+    },
+    {
+      question: 'Hur snabbt behöver du hjälp?',
+      options: [
+        { text: '⚡ Så fort som möjligt — idag helst', value: 'brattom' },
+        { text: '📅 Inom några dagar', value: 'snart' },
+        { text: '🗓️ Ingen brådska — inom en vecka', value: 'lugnt' }
+      ]
+    },
+    {
+      question: 'Hur vill du ha hjälpen?',
+      options: [
+        { text: '💻 Distans (fjärrsupport)', value: 'distans' },
+        { text: '🏠 Hembesök i Stockholm', value: 'hembesok' },
+        { text: '🤷 Spelar ingen roll — det som funkar bäst', value: 'flex' }
+      ]
+    }
+  ];
+
+  let currentStep = 0;
+  let answers = [];
+  const container = document.getElementById('diagStep');
+  const progressDots = document.querySelectorAll('.diag-dot');
+
+  function updateProgress(){
+    progressDots.forEach((d,i) => {
+      d.classList.remove('active','done');
+      if(i < currentStep) d.classList.add('done');
+      if(i === currentStep) d.classList.add('active');
+    });
+  }
+
+  function renderStep(){
+    if(currentStep >= steps.length){ showResult(); return; }
+    updateProgress();
+    const s = steps[currentStep];
+    let html = `<h4>${s.question}</h4><div class="diag-options">`;
+    s.options.forEach((o,i) => {
+      html += `<button class="diag-btn" data-value="${o.value}" data-idx="${i}">${o.text}</button>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+    container.querySelectorAll('.diag-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        answers.push(btn.dataset.value);
+        currentStep++;
+        renderStep();
+      });
+    });
+  }
+
+  function showResult(){
+    updateProgress();
+    const [problem, brådska, metod] = answers;
+    let resultClass, title, body, cta;
+
+    if(problem === 'gaming'){
+      resultClass = 'recommend'; title = '🎮 Gamingoptimering rekommenderas';
+      body = 'Dina svar tyder på att din gamingdator behöver en genomgång. Vi går igenom drivrutiner, FPS-inställningar, temperaturer och bakgrundsprogram för att få upp prestandan rejält.';
+      cta = 'Boka gamingoptimering';
+    } else if(problem === 'sakerhet'){
+      resultClass = 'recommend'; title = '🛡️ Digital säkerhetskontroll rekommenderas';
+      body = 'Dina svar tyder på att du skulle må bra av en säkerhetsgenomgång. Vi scannar efter virus, malware, kollar lösenord, 2FA och ser till att din dator är skyddad mot bedrägerier.';
+      cta = 'Boka säkerhetskontroll';
+    } else if(problem === 'rad'){
+      resultClass = 'safe'; title = '💡 Gratis rådgivning passar dig';
+      body = 'Du verkar inte ha ett akut problem utan vill veta mer. Kontakta oss så pratar vi igenom dina behov — helt kostnadsfritt och utan förpliktelser.';
+      cta = 'Få gratis rådgivning';
+    } else {
+      resultClass = 'recommend'; title = '🖥️ Datorhjälp rekommenderas';
+      body = 'Dina svar tyder på att din dator behöver en allmän genomgång — felsökning, rensning och optimering. Vi fixar det snabbt och förklarar vad som var fel.';
+      cta = 'Boka datorhjälp';
+    }
+
+    let html = `<div class="diag-result ${resultClass}">`;
+    html += `<h4>${title}</h4>`;
+    html += `<p>${body}</p>`;
+    html += `<a href="#boka" class="btn btn-primary">📅 ${cta}</a>`;
+    html += `&nbsp;&nbsp;<button class="btn btn-outline" onclick="window.diagRestart()">🔄 Börja om</button>`;
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
+  window.diagRestart = function(){
+    currentStep = 0; answers = []; renderStep();
+  };
+
+  renderStep();
+})();
+
+// ---- ÖPPETTIDER ----
+(function(){
+  const grid = document.getElementById('hoursGrid');
+  if(!grid) return;
+  const days = ['Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag'];
+  const hours = ['10–19','10–19','10–19','10–19','10–19','10–16','10–16'];
+  const today = (new Date().getDay() + 6) % 7; // 0=Mon
+  days.forEach((d,i) => {
+    const div = document.createElement('div');
+    div.className = 'hours-item' + (i === today ? ' today' : '');
+    div.innerHTML = `<div class="hours-day">${d}</div><div class="hours-time">${hours[i]}</div>`;
+    grid.appendChild(div);
+  });
+})();
+
+// ---- CALENDLY (lazy load) ----
+(function(){
+  const container = document.getElementById('calendlyContainer');
+  if(!container) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const script = document.createElement('script');
+        script.src = 'https://assets.calendly.com/assets/external/widget.js';
+        script.async = true;
+        script.onload = () => {
+          if(window.Calendly){
+            Calendly.initInlineWidget({
+              url: 'https://calendly.com/DITTANVANDARNAMN/datorhjalp',
+              parentElement: container,
+              prefill: {},
+              utm: {}
+            });
+          }
+        };
+        document.head.appendChild(script);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(container);
+})();
+
+</script>
+<!-- ===== MOBILE STICKY BAR ===== -->
+<div class="mobile-sticky">
+  <a href="tel:" class="sticky-btn sticky-call">📞 Ring oss</a>
+  <a href="#boka" class="sticky-btn sticky-book">📅 Boka tid</a>
+  <a href="mailto:info@datorhjalpen.nu" class="sticky-btn sticky-mail">✉️ Mejla</a>
+</div>
+
+</body>
+</html>
